@@ -34,7 +34,7 @@ class Ui_tela_jogo(object):
         icon = QIcon()
         icon.addFile(u"logo.ico", QSize(), QIcon.Normal, QIcon.Off)
         tela_jogo.setWindowIcon(icon)
-        tela_jogo.setStyleSheet(u"background-color: rgb(0, 0, 121);")
+        tela_jogo.setStyleSheet(u"background-color: rgb(0, 54, 100);")
         tela_jogo.setIconSize(QSize(48, 48))
         self.centralwidget = QWidget(tela_jogo)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -260,11 +260,26 @@ class Ui_tela_jogo(object):
         self.botao_meio_a_meio_1.clicked.connect(self.eliminar_duas_opcoes_1)
         self.botao_meio_a_meio_2.clicked.connect(self.eliminar_duas_opcoes_2)
         self.tela_fim_de_jogo.botao_novo_jogo.clicked.connect(self.novo_jogo)
+        self.botao_parar.clicked.connect(self.parar)
         self.sortear_pergunta()
         self.preencher_campos()
 
         QMetaObject.connectSlotsByName(tela_jogo)
     # setupUi
+
+    def parar(self):
+        self.botao_parar.setEnabled(False)
+        self.botao_parar.setStyleSheet(u"background-color: rgb(100, 0, 0); color: rgb(200, 200, 200);")
+        pergunta = Ui_tela_jogo.numero_pergunta - 1
+        if pergunta == 1 or pergunta == len(Ui_tela_jogo.premios):
+            premio = Ui_tela_jogo.premios[pergunta - 1] / 2
+        else:
+            premio = Ui_tela_jogo.premios[pergunta - 1]
+        self.tela_fim_de_jogo.label_premio.setText(f'Você ganhou {self.formatar_valor_premio(premio)}')
+        self.tela_fim_de_jogo.label_premio.raise_()
+        self.hide()
+        self.tela_fim_de_jogo.show()
+    # parar
 
     def pular_pergunta_1(self):
         self.botao_pular_1.setEnabled(False)
@@ -451,13 +466,18 @@ class Ui_tela_jogo(object):
 
     def arriscar_alternativa(self, resposta):
         if resposta == Ui_tela_jogo.questao['resposta']:  # Resposta Certa
-            # Todo: Fazer condição do milhão
-            self.hide()
-            self.tela_acertar.label.setText(u"Você acertou !")
-            self.tela_acertar.barra_progresso.setValue(0)
-            self.tela_acertar.show()
-            self.timer.timeout.connect(self.incrementar_barra_progresso)
-            self.timer.start(1000)
+            if (Ui_tela_jogo.numero_pergunta - 1) == len(Ui_tela_jogo.premios):
+                self.tela_fim_de_jogo.label_premio.setText(f'Você ganhou {self.formatar_valor_premio(1000000)}')
+                self.tela_fim_de_jogo.label_premio.raise_()
+                self.hide()
+                self.tela_fim_de_jogo.show()
+            else:
+                self.hide()
+                self.tela_acertar.label.setText(u"Você acertou !")
+                self.tela_acertar.barra_progresso.setValue(0)
+                self.tela_acertar.show()
+                self.timer.timeout.connect(self.incrementar_barra_progresso)
+                self.timer.start(1000)
         else:  # Resposta Errada
             pergunta = Ui_tela_jogo.numero_pergunta - 1
             if pergunta == 1 or pergunta == len(Ui_tela_jogo.premios):
@@ -495,9 +515,9 @@ class Ui_tela_jogo(object):
     # incrementar_barra_progresso
 
 
-class CriarTelaResultado(QtWidgets.QMainWindow, Ui_tela_jogo):
+class CriarTelaDoJogo(QtWidgets.QMainWindow, Ui_tela_jogo):
     def __init__(self):
-        super(CriarTelaResultado, self).__init__()
+        super(CriarTelaDoJogo, self).__init__()
         self.setupUi(self)
 
     def closeEvent(self, event):
@@ -506,6 +526,6 @@ class CriarTelaResultado(QtWidgets.QMainWindow, Ui_tela_jogo):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    window_login = CriarTelaResultado()
+    window_login = CriarTelaDoJogo()
     window_login.show()
     sys.exit(app.exec_())

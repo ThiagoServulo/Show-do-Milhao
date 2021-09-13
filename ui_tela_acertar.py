@@ -16,7 +16,7 @@ class Ui_tela_acertar(object):
         icon = QIcon()
         icon.addFile(u"logo.ico", QSize(), QIcon.Normal, QIcon.Off)
         tela_acertar.setWindowIcon(icon)
-        tela_acertar.setStyleSheet(u"background-color: rgb(0, 0, 121);")
+        tela_acertar.setStyleSheet(u"background-color: rgb(0, 54, 100);")
         self.centralwidget = QWidget(tela_acertar)
         self.centralwidget.setObjectName(u"centralwidget")
         self.groupBox = QGroupBox(self.centralwidget)
