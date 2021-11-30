@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>tela_regras_do_jogo</class>
+ <widget class="QMainWindow" name="tela_regras_do_jogo">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>931</width>
+    <height>382</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Show do Milhão</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(0, 54, 100);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>891</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>18</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string notr="true">Regras do Jogo</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>70</y>
+      <width>891</width>
+      <height>301</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string notr="true">Cada partida é composta por 24 perguntas onde o jogador precisa escolher a alternativa correta para continuar avançando.
+As perguntas estão classificadas em três níveis de dificuldade.
+A cada resposta correta, o jogador aumenta o valor do seu prêmio. 
+Se a resposta estiver errada, o jogador receberá o valor do prêmio da pergunta anterior.
+Se o jogador decidir parar, ele receberá metade do valor do prêmio da pergunta atual.
+Ao longo do jogo, o jogador poderá utilizar dois tipos de dica.
+A primeira delas é o botão de pular, que pode ser usado em até três oportunidades.
+Neste botão, a pergunta atual é descartada e uma nova pergunta é sorteada.
+A outra dica disponível é o botão meio a meio, que pode ser usado em até duas oportunidades.
+Neste botão, duas alternativas da pergunta atual são eliminadas, facilitando a decisão do jogador em relação a resposta correta.
+Na pergunta do milhão, as regras sofrem uma pequena alteração. 
+Primeiro é que nenhuma opção de dica poderá ser usada nesta pergunta.
+Além disso, se o jogador errar a respota desta pergunta, ele não receberá nenhum valor financeiro como prêmio.
+Por fim, ressaltamos que o valor do prêmio é meramente fictício e não corresponde a um valor real.</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

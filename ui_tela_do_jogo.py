@@ -12,6 +12,8 @@ import time
 gc = gspread.service_account(filename='service_account.json')
 sh = gc.open_by_key('1BLKHeJ-QNVctGtBB8pfwpOBo_2ppH0goBl9saBl4JwE')
 
+QUANTIDADE_PERGUNTAS = 180
+
 
 class Ui_tela_jogo(object):
     flag_mudar_premio = True
@@ -361,10 +363,11 @@ class Ui_tela_jogo(object):
         else:
             pagina = sh.worksheet('Dificil')
         while True:
-            num = random.randint(1, 100)
+            num = random.randint(1, QUANTIDADE_PERGUNTAS)
             if num not in Ui_tela_jogo.perguntas_sorteadas:
                 Ui_tela_jogo.perguntas_sorteadas.append(num)
                 break
+        print(num)
         if Ui_tela_jogo.flag_mudar_premio:
             Ui_tela_jogo.numero_pergunta += 1
         else:
@@ -375,7 +378,7 @@ class Ui_tela_jogo(object):
         Ui_tela_jogo.questao['alternativa_3'] = pagina.acell(f'D{num}').value
         Ui_tela_jogo.questao['alternativa_4'] = pagina.acell(f'E{num}').value
         Ui_tela_jogo.questao['resposta'] = pagina.acell(f'F{num}').value
-        # print(Ui_tela_jogo.questao)
+        print(Ui_tela_jogo.questao)
     # sortear_pergunta
 
     def preencher_campos(self):
@@ -385,7 +388,23 @@ class Ui_tela_jogo(object):
         self.botao_resposta_3.setText(Ui_tela_jogo.questao['alternativa_3'])
         self.botao_resposta_4.setText(Ui_tela_jogo.questao['alternativa_4'])
         pergunta = Ui_tela_jogo.numero_pergunta - 1
-        if pergunta == 1 or pergunta == len(Ui_tela_jogo.premios):
+        print(f'aqui - {Ui_tela_jogo.numero_pergunta} - {len(Ui_tela_jogo.premios)}')
+        if (Ui_tela_jogo.numero_pergunta - 1) == (len(Ui_tela_jogo.premios) - 1):
+            print('entrou')
+            self.botao_meio_a_meio_1.setEnabled(False)
+            self.botao_meio_a_meio_1.setStyleSheet(u"background-color: rgb(100, 0, 0); color: rgb(200, 200, 200);")
+            self.botao_meio_a_meio_2.setEnabled(False)
+            self.botao_meio_a_meio_2.setStyleSheet(u"background-color: rgb(100, 0, 0); color: rgb(200, 200, 200);")
+            self.botao_pular_1.setEnabled(False)
+            self.botao_pular_1.setStyleSheet(u"background-color: rgb(100, 0, 0); color: rgb(200, 200, 200);")
+            self.botao_pular_2.setEnabled(False)
+            self.botao_pular_2.setStyleSheet(u"background-color: rgb(100, 0, 0); color: rgb(200, 200, 200);")
+            self.botao_pular_3.setEnabled(False)
+            self.botao_pular_3.setStyleSheet(u"background-color: rgb(100, 0, 0); color: rgb(200, 200, 200);")
+            self.label_valor_errar.setText(self.formatar_valor_premio(0))
+            self.label_valor_parar.setText(self.formatar_valor_premio(500000))
+            self.label_valor_acertar.setText(self.formatar_valor_premio(1000000))
+        elif pergunta == 1:
             self.label_valor_errar.setText(self.formatar_valor_premio(0))
             self.label_valor_parar.setText(self.formatar_valor_premio(Ui_tela_jogo.premios[pergunta - 1] / 2))
             self.label_valor_acertar.setText(self.formatar_valor_premio(Ui_tela_jogo.premios[pergunta - 1]))
@@ -466,7 +485,9 @@ class Ui_tela_jogo(object):
 
     def arriscar_alternativa(self, resposta):
         if resposta == Ui_tela_jogo.questao['resposta']:  # Resposta Certa
-            if (Ui_tela_jogo.numero_pergunta - 1) == len(Ui_tela_jogo.premios):
+            print(f'aqui -{(Ui_tela_jogo.numero_pergunta - 2)}')
+            if (Ui_tela_jogo.numero_pergunta - 1) == (len(Ui_tela_jogo.premios) - 1):
+                print('entrou 2')
                 self.tela_fim_de_jogo.label_premio.setText(f'Você ganhou {self.formatar_valor_premio(1000000)}')
                 self.tela_fim_de_jogo.label_premio.raise_()
                 self.hide()

@@ -3,6 +3,7 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 from PySide2 import QtWidgets
 from ui_tela_do_jogo import CriarTelaDoJogo
+from ui_tela_regras_do_jogo import CriarTelaRegrasDoJogo
 import sys
 
 
@@ -14,6 +15,7 @@ class Ui_tela_inicio_jogo(object):
         tela_inicio_jogo.setMinimumSize(448, 260)
         tela_inicio_jogo.setMaximumSize(448, 260)
         tela_inicio_jogo.setStyleSheet(u"background-color: rgb(0, 54, 100);")
+        tela_inicio_jogo.setWindowTitle(u"Show do Milhão")
         icon = QIcon()
         icon.addFile(u"logo.ico", QSize(), QIcon.Normal, QIcon.Off)
         tela_inicio_jogo.setWindowIcon(icon)
@@ -45,9 +47,15 @@ class Ui_tela_inicio_jogo(object):
 
         self.tela_jogo = CriarTelaDoJogo()
         self.botao_novo_jogo.clicked.connect(self.novo_jogo)
+        self.tela_regras = CriarTelaRegrasDoJogo()
+        self.botao_regras.clicked.connect(self.mostrar_tela_regras)
 
         QMetaObject.connectSlotsByName(tela_inicio_jogo)
     # setupUi
+
+    def mostrar_tela_regras(self):
+        self.tela_regras.show()
+    # mostrar_tela_regras
 
     def novo_jogo(self):
         self.hide()
